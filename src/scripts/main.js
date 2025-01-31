@@ -7,14 +7,17 @@ const removeRow = document.querySelector('.remove-row');
 const appendColumn = document.querySelector('.append-column');
 const removeColumn = document.querySelector('.remove-column');
 
+const minSize = 2;
+const maxSize = 10;
+
 const disableRowButtons = () => {
-  if (table.rows.length <= 2) {
+  if (table.rows.length <= minSize) {
     removeRow.disabled = true;
   } else {
     removeRow.disabled = false;
   }
 
-  if (table.rows.length >= 10) {
+  if (table.rows.length >= maxSize) {
     appendRow.disabled = true;
   } else {
     appendRow.disabled = false;
@@ -22,13 +25,13 @@ const disableRowButtons = () => {
 };
 
 const disableColumnButtons = () => {
-  if (table.rows[0].cells.length <= 2) {
+  if (table.rows[0].cells.length <= minSize) {
     removeColumn.disabled = true;
   } else {
     removeColumn.disabled = false;
   }
 
-  if (table.rows[0].cells.length >= 10) {
+  if (table.rows[0].cells.length >= maxSize) {
     appendColumn.disabled = true;
   } else {
     appendColumn.disabled = false;
@@ -36,19 +39,19 @@ const disableColumnButtons = () => {
 };
 
 appendRow.addEventListener('click', () => {
-  if (table.rows.length >= 10) {
+  if (table.rows.length >= maxSize) {
     return;
   }
 
   const newRow = table.rows[0].cloneNode(true);
 
-  table.append(newRow);
+  table.tBodies[0].append(newRow);
 
   disableRowButtons();
 });
 
 removeRow.addEventListener('click', () => {
-  if (table.rows.length <= 2) {
+  if (table.rows.length <= minSize) {
     return;
   }
 
@@ -58,7 +61,7 @@ removeRow.addEventListener('click', () => {
 });
 
 appendColumn.addEventListener('click', () => {
-  if (table.rows[0].cells.length >= 10) {
+  if (table.rows[0].cells.length >= maxSize) {
     return;
   }
 
@@ -72,7 +75,7 @@ appendColumn.addEventListener('click', () => {
 });
 
 removeColumn.addEventListener('click', () => {
-  if (table.rows[0].cells.length <= 2) {
+  if (table.rows[0].cells.length <= minSize) {
     return;
   }
 
